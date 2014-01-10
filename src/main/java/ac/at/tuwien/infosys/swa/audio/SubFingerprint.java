@@ -2,12 +2,19 @@ package ac.at.tuwien.infosys.swa.audio;
 
 import java.io.Serializable;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+
 import static java.lang.Math.abs;
 
 /**
  * Class to store a subfingerprint so it can be easily compared with other subfingerprints using the {@link
  * #difference(SubFingerprint)} method.
  */
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlRootElement(name = "SubFingerprint")
 public class SubFingerprint implements Serializable {
 
     private static final long serialVersionUID = -6294164835173846660L;
@@ -15,9 +22,11 @@ public class SubFingerprint implements Serializable {
     /**
      * The number of bits used by each subfingerprint.
      */
-    public static final int SIZE = Integer.SIZE;
+    @XmlElement(name = "SIZE", required = true)
+    public static   int SIZE = Integer.SIZE;
 
-    private final int value;
+    @XmlElement(name = "value", required = true)
+    private   int value;
 
     /**
      * A subfingerprint with specified <code>int</code> value.
@@ -105,4 +114,26 @@ public class SubFingerprint implements Serializable {
 
         return result.toString();
     }
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+
+	public static int getSIZE() {
+		return SIZE;
+	}
+
+	public static void setSIZE(int sIZE) {
+		SIZE = sIZE;
+	}
+
+	public void setValue(int value) {
+		this.value = value;
+	}
+
+	public SubFingerprint() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+    
 }

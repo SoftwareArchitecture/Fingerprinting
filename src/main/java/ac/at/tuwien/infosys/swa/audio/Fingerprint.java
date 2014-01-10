@@ -6,10 +6,18 @@ import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+
 /**
  * Class to store a fingerprint so it can be easily compared with other fingerprints using the {@link
  * #match(Fingerprint...)} method.
  */
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlRootElement(name = "Fingerprint")
 public class Fingerprint implements Serializable {
 
     private static final long serialVersionUID = -5584723374871814891L;
@@ -17,20 +25,28 @@ public class Fingerprint implements Serializable {
     /**
      * The length for new fingerprints that is used by the {@link #split()} method.
      */
+    @XmlElement(name = "DEFAULT_SPLIT_LENGTH", required = true)
     public static final int DEFAULT_SPLIT_LENGTH = 256;
     /**
      * The shift between each two consecutive fingerprints that is used by the {@link #split()} method.
      */
+    @XmlElement(name = "DEFAULT_SPLIT_SHIFT", required = true)
     public static final int DEFAULT_SPLIT_SHIFT = 1;
 
     /**
      * Maximum ratio of difference in bits for matching to be considered successful.
      */
+    @XmlElement(name = "THRESHOLD", required = true)
     private static final double THRESHOLD = 0.35d;
 
-    private final double startTime;
-    private final double shiftDuration;
-    private final SubFingerprint[] subFingerprints;
+    @XmlElement(name = "startTime", required = true)
+    private double startTime;
+    
+    @XmlElement(name = "shiftDuration", required = true)
+    private double shiftDuration;
+    
+    @XmlElement(name = "SubFingerprint", required = true)
+    private SubFingerprint[] subFingerprints;
 
     /**
      * Create an instance with specified time in seconds from beginning of the audio from which specified {@link
@@ -213,4 +229,27 @@ public class Fingerprint implements Serializable {
 
         return result.toString();
     }
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+
+	public static int getDefaultSplitLength() {
+		return DEFAULT_SPLIT_LENGTH;
+	}
+
+	public static int getDefaultSplitShift() {
+		return DEFAULT_SPLIT_SHIFT;
+	}
+
+	public static double getThreshold() {
+		return THRESHOLD;
+	}
+
+	public Fingerprint() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+    
+    
 }
