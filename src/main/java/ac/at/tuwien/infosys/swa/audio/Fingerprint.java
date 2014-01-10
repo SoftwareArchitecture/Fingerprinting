@@ -45,9 +45,13 @@ public class Fingerprint implements Serializable {
     @XmlElement(name = "shiftDuration", required = true)
     private double shiftDuration;
     
-    @XmlElement(name = "SubFingerprint", required = true)
+    @XmlElement(name = "SubFingerprint")
     private SubFingerprint[] subFingerprints;
 
+    {
+    	subFingerprints = new SubFingerprint[]{};
+    }
+    
     /**
      * Create an instance with specified time in seconds from beginning of the audio from which specified {@link
      * SubFingerprint}s start, the duration in seconds between each two consecutive {@link SubFingerprint}, and having
